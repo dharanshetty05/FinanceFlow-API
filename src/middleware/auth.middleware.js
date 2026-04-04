@@ -4,8 +4,6 @@ export const protect = (req, res, next) => {
 
     const authHeader = req.headers.authorization;
 
-    console.log("AUTH HEADER:", authHeader); // debug
-
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({
         success: false,
@@ -15,23 +13,11 @@ export const protect = (req, res, next) => {
 
     const token = authHeader.split(' ')[1];
 
-    // const token = req.headers.authorization?.split(' ')[1];
-
-    // if (!token) {
-    //     return res.status(401).json({ success: false, message: 'Unauthorized' });
-    // }
-
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        console.log("DECODED:", decoded);
-
         req.user = decoded;
         next();
     } catch (err) {
-
-        console.log("JWT ERROR:", err.message);
-
         return res.status(401).json({ 
             success: false, 
             message: 'Invalid token' 
