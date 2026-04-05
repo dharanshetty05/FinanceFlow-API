@@ -7,3 +7,5 @@ export const createRecordSchema = z.object({
     date: z.string().datetime(),
     notes: z.string().optional()
 });
+
+export const updateRecordSchema = createRecordSchema.partial();

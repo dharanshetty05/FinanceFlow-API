@@ -1,4 +1,3 @@
-import { success } from 'zod';
 import * as dashboardService from '../services/dashboard.service.js';
 
 export const getSummary = async (req, res) => {

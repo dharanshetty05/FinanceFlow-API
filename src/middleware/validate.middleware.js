@@ -7,7 +7,7 @@ export const validate = (schema) => (req, res, next) => {
         success: false,
         error: {
             code: 'VALIDATION_ERROR',
-            message: err.errors
+            message: err.issues
         }
         });
     }

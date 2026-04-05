@@ -15,7 +15,7 @@ router.get('/:id', authorize('analyst', 'admin'), controller.getRecord);
 
 // Write access (Admin only)
 router.post('/', authorize('admin'), validate(createRecordSchema), controller.createRecord);
-router.patch('/:id', authorize('admin'), controller.updateRecord);
+router.patch('/:id', authorize('admin'), validate(updateRecordSchema), controller.updateRecord);
 router.delete('/:id', authorize('admin'), controller.deleteRecord);
 
 export default router;
