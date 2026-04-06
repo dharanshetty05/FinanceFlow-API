@@ -7,8 +7,12 @@ const router = express.Router();
 
 router.use(protect);
 
+// Read access (Analyst + Admin)
+router.get('/', authorize('analyst', 'admin'), controller.getUsers);
+router.get('/:id', authorize('analyst', 'admin'), controller.getUserById);
+
+// Write access (Admin only)
 router.post('/', authorize('admin'), controller.createUser);
-router.get('/', authorize('admin'), controller.getUsers);
 router.patch('/:id', authorize('admin'), controller.updateUser);
 router.delete('/:id', authorize('admin'), controller.deleteUser);
 

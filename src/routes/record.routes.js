@@ -3,7 +3,7 @@ import * as controller from '../controllers/record.controller.js';
 import { protect } from '../middleware/auth.middleware.js';
 import { authorize } from '../middleware/role.middleware.js';
 import { validate } from '../middleware/validate.middleware.js';
-import { createRecordSchema } from '../validators/record.validator.js';
+import { createRecordSchema, updateRecordSchema } from '../validators/record.validator.js';
 
 const router = express.Router();
 

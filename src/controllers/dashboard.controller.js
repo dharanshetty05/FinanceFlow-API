@@ -1,6 +1,6 @@
 import * as dashboardService from '../services/dashboard.service.js';
 
-export const getSummary = async (req, res) => {
+export const getSummary = async (req, res, next) => {
     try {
         const data = await dashboardService.getSummary();
         res.json({
@@ -8,14 +8,11 @@ export const getSummary = async (req, res) => {
             data
         });
     } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: err.message
-        });
+        next(err);
     }
 };
 
-export const getCategoryBreakdown = async (req, res) => {
+export const getCategoryBreakdown = async (req, res, next) => {
     try{
         const data = await dashboardService.getCategoryBreakdown();
         res.json({
@@ -23,14 +20,11 @@ export const getCategoryBreakdown = async (req, res) => {
             data
         });
     } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: err.message
-        });
+        next(err);
     }
 };
 
-export const getTrends = async (req, res) => {
+export const getTrends = async (req, res, next) => {
     try {
         const raw = await dashboardService.getTrends();
         const formatted = {};
@@ -53,14 +47,11 @@ export const getTrends = async (req, res) => {
             data: result
         });
     } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: err.message
-        })
+        next(err);
     }
 };
 
-export const getRecent = async (req, res) => {
+export const getRecent = async (req, res, next) => {
     try {
         const data = await dashboardService.getRecent();
 
@@ -69,9 +60,6 @@ export const getRecent = async (req, res) => {
             data
         });
     } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: err.message
-        });
+        next(err);
     }
 };
