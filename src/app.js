@@ -6,7 +6,6 @@ import dashboardRoutes from './routes/dashboard.routes.js';
 import userRoutes from './routes/user.routes.js';
 import { errorHandler } from './middleware/error.middleware.js';
 
-
 const app = express();
 
 app.use(cors());

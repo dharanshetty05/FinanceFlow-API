@@ -4,7 +4,7 @@ export const createRecord = async (data, userId) => {
     return await Record.create({ ...data, createdBy: userId });
 };
 
-export const getRecords = async (query) => {
+export const getRecords = async (query, userId) => {
     const {
         type,
         category,
@@ -14,7 +14,9 @@ export const getRecords = async (query) => {
         limit = 10
     } = query;
 
-    const filter = {};
+    const filter = {
+        createdBy: userId
+    };
 
     if (type) filter.type = type;
     if (category) filter.category = category;
@@ -42,14 +44,21 @@ export const getRecords = async (query) => {
     };
 };
 
-export const getRecordById = async (id) => {
-    return await Record.findById(id);
+export const getRecordById = async (id, userId) => {
+    return await Record.findOne({ _id: id, createdBy: userId });
 };
 
-export const updateRecord = async (id, data) => {
-    return await Record.findByIdAndUpdate(id, data, { new: true });
+export const updateRecord = async (id, data, userId) => {
+    return await Record.findOneAndUpdate(
+        { _id: id, createdBy: userId },
+        data,
+        { new: true }
+    );
 };
 
-export const deleteRecord = async (id) => {
-    return await Record.findByIdAndDelete(id);
+export const deleteRecord = async (id, userId) => {
+    return await Record.findOneAndDelete({
+        _id: id,
+        createdBy: userId
+    });
 };

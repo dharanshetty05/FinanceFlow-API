@@ -14,7 +14,7 @@ export const createRecord = async (req, res, next) => {
 
 export const getRecords = async (req, res, next) => {
     try {
-        const result = await recordService.getRecords(req.query);
+        const result = await recordService.getRecords(req.query, req.user.id);
         res.json({
         success: true,
         data: result
@@ -26,7 +26,10 @@ export const getRecords = async (req, res, next) => {
 
 export const getRecord = async (req, res, next) => {
     try {
-        const record = await recordService.getRecordById(req.params.id);
+        const record = await recordService.getRecordById(
+            req.params.id,
+            req.user.id
+        );
         if (!record) {
         return res.status(404).json({ success: false, message: 'Not found' });
         }
@@ -38,7 +41,7 @@ export const getRecord = async (req, res, next) => {
 
 export const updateRecord = async (req, res, next) => {
     try {
-        const record = await recordService.updateRecord(req.params.id, req.body);
+        const record = await recordService.updateRecord(req.params.id, req.body, req.user.id);
 
         if (!record) {
             return res.status(404).json({
@@ -55,7 +58,7 @@ export const updateRecord = async (req, res, next) => {
 
 export const deleteRecord = async (req, res, next) => {
     try {
-        const record = await recordService.deleteRecord(req.params.id);
+        const record = await recordService.deleteRecord(req.params.id, req.user.id);
 
         if (!record) {
             return res.status(404).json({
